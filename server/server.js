@@ -29,11 +29,25 @@ const app = express();
 // ─── MIDDLEWARE ────────────────────────────────────────────────────────────────
 
 // Allow requests from the React frontend
-const allowedOrigins = [process.env.CLIENT_URL, "http://127.0.0.1:5173"];
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://127.0.0.1:5173",
+  "http://localhost:5173",
+];
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      if (process.env.NODE_ENV !== "production") {
+        callback(null, true);
+        return;
+      }
+
+      if (allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));

@@ -55,7 +55,11 @@ const Notes = () => {
     try {
       const noteData = {
         ...form,
-        tags: form.tags.split(',').map((tag) => tag.trim()).filter(Boolean),
+        tags: form.tags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        subject: form.subject?.trim() || subjectFilter || '',
       };
 
       if (editingNote) {
@@ -72,7 +76,8 @@ const Notes = () => {
       loadNotes();
     } catch (error) {
       console.error(error);
-      toast.error('Unable to save note.');
+      const message = error.response?.data?.message || error.message || 'Unable to save note.';
+      toast.error(message);
     } finally {
       setSaving(false);
     }

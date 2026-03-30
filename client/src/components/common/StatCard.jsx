@@ -1,8 +1,22 @@
 import { cn } from "../../utils/cn";
 
-export default function StatCard({ title, value, icon: Icon, trend, trendValue, colorClass }) {
+export default function StatCard({ title, value, icon: Icon, trend, trendValue, colorClass, onClick }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm border border-gray-100 dark:bg-gray-900/50 dark:border-gray-800 transition-all hover:shadow-md hover:border-gray-200 dark:hover:border-gray-700 group">
+    <div
+      onClick={onClick}
+      onKeyDown={onClick ? (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick();
+        }
+      } : undefined}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      className={cn(
+        "relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm border border-gray-100 dark:bg-gray-900/50 dark:border-gray-800 transition-all hover:shadow-md hover:border-gray-200 dark:hover:border-gray-700 group",
+        onClick ? 'cursor-pointer' : ''
+      )}
+    >
       <div className="flex items-center justify-between z-10 relative">
         <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</p>
         <div className={cn("rounded-lg p-2 transition-transform group-hover:scale-110", colorClass.bg, colorClass.text)}>

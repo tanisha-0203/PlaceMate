@@ -21,6 +21,7 @@ const getDashboardStats = async (req, res) => {
     recentActivity,
     subjects,
     pendingRevisions,
+    totalNotes,
   ] = await Promise.all([
     DSAProblem.countDocuments({ user: userId }),
     DSAProblem.countDocuments({ user: userId, status: "solved" }),
@@ -28,6 +29,7 @@ const getDashboardStats = async (req, res) => {
     ActivityLog.find({ user: userId }).sort({ createdAt: -1 }).limit(8),
     SubjectProgress.find({ user: userId }),
     DSAProblem.countDocuments({ user: userId, status: "reviseLater" }),
+    Note.countDocuments({ user: userId }),
   ]);
 
   // Calculate overall subject completion %
@@ -39,6 +41,15 @@ const getDashboardStats = async (req, res) => {
   });
   const subjectProgress = totalTopics > 0 ? Math.round((completedTopics / totalTopics) * 100) : 0;
 
+  // Average mock session score from self ratings
+  const mockSessions = await MockSession.find({ user: userId, completedAt: { $exists: true } });
+  let mockScore = "0/5";
+  if (mockSessions.length > 0) {
+    const allRatings = mockSessions.flatMap((session) => session.answers.map((answer) => answer.selfRating || 0));
+    const averageRating = allRatings.length > 0 ? allRatings.reduce((sum, rating) => sum + rating, 0) / allRatings.length : 0;
+    mockScore = `${(Math.round(averageRating * 10) / 10).toFixed(1)}/5`;
+  }
+
   res.json({
     dsa: {
       total: totalProblems,
@@ -46,9 +57,14 @@ const getDashboardStats = async (req, res) => {
       reviseLater: pendingRevisions,
     },
     companies: { total: totalCompanies },
+    notes: { total: totalNotes },
     subjectProgress,
     recentActivity,
-    streak: req.user.streak,
+    streak: {
+      current: req.user.streak?.current || 0,
+      longest: req.user.streak?.longest || 0,
+    },
+    mockScore,
   });
 };
 

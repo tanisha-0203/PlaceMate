@@ -1,15 +1,9 @@
 import api from './api';
 
 const noteService = {
-<<<<<<< HEAD
-  // Get all notes
-  getNotes: async () => {
-    const response = await api.get('/notes');
-=======
-  // Get notes with optional query filters
+  // Get all notes, optionally filtered by query params
   getNotes: async (params = {}) => {
     const response = await api.get('/notes', { params });
->>>>>>> c76f504 (updating changes)
     return response.data;
   },
 
@@ -29,11 +23,7 @@ const noteService = {
   deleteNote: async (id) => {
     const response = await api.delete(`/notes/${id}`);
     return response.data;
-<<<<<<< HEAD
   }
-=======
-  },
->>>>>>> c76f504 (updating changes)
 };
 
 export default noteService;

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { csSubjectsData } from '../data/csSubjects';
@@ -7,28 +6,6 @@ import {
   Briefcase, Cloud, Terminal, Calculator, GitMerge, Orbit 
 } from 'lucide-react';
 import { cn } from '../utils/cn';
-=======
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { csSubjectsData } from '../data/csSubjects';
-import {
-  BookOpen,
-  ArrowRight,
-  LayoutGrid,
-  Database,
-  Network,
-  Cpu,
-  Briefcase,
-  Cloud,
-  Terminal,
-  Calculator,
-  GitMerge,
-  Orbit,
-} from 'lucide-react';
-import { cn } from '../utils/cn';
-import subjectService from '../services/subjectService';
-import { toast } from 'react-hot-toast';
->>>>>>> c76f504 (updating changes)
 
 const iconMap = {
   os: LayoutGrid,
@@ -41,7 +18,6 @@ const iconMap = {
   cloud: Cloud,
   aptitude: Briefcase,
   linear_algebra: Calculator,
-<<<<<<< HEAD
   math: Calculator
 };
 
@@ -64,53 +40,6 @@ const Subjects = () => {
   const subjectsArray = Object.values(csSubjectsData);
   
   // Group by category
-=======
-  math: Calculator,
-};
-
-const gradientMap = {
-  os: 'from-blue-500 to-cyan-500',
-  dbms: 'from-emerald-500 to-teal-500',
-  cn: 'from-purple-500 to-pink-500',
-  oop: 'from-amber-500 to-orange-500',
-  sdlc: 'from-blue-600 to-indigo-600',
-  linux: 'from-zinc-600 to-zinc-800',
-  system_design: 'from-violet-500 to-fuchsia-500',
-  cloud: 'from-sky-400 to-blue-500',
-  aptitude: 'from-indigo-400 to-blue-500',
-  linear_algebra: 'from-rose-400 to-red-500',
-  math: 'from-orange-400 to-red-400',
-};
-
-
-const Subjects = () => {
-  const [progressDocs, setProgressDocs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProgress = async () => {
-      setLoading(true);
-      try {
-        const docs = await subjectService.getSubjects();
-        setProgressDocs(docs);
-      } catch (error) {
-        console.error(error);
-        toast.error('Could not load subject progress.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProgress();
-  }, []);
-
-  const progressMap = progressDocs.reduce((acc, item) => {
-    acc[item.subject] = item;
-    return acc;
-  }, {});
-
-  const subjectsArray = Object.values(csSubjectsData);
->>>>>>> c76f504 (updating changes)
   const categories = subjectsArray.reduce((acc, subject) => {
     if (!acc[subject.category]) {
       acc[subject.category] = [];
@@ -121,10 +50,7 @@ const Subjects = () => {
 
   return (
     <div className="max-w-7xl mx-auto space-y-12 pb-12">
-<<<<<<< HEAD
       {/* Page Header */}
-=======
->>>>>>> c76f504 (updating changes)
       <div>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
           <BookOpen className="h-8 w-8 text-indigo-500" />
@@ -134,12 +60,8 @@ const Subjects = () => {
           Master the fundamentals required for top-tier swe interviews. Select a module below to track your syllabus, revise key topics, and store revision notes.
         </p>
       </div>
-<<<<<<< HEAD
       
       {/* Category Sections */}
-=======
-
->>>>>>> c76f504 (updating changes)
       {Object.entries(categories).map(([categoryName, subjects]) => (
         <section key={categoryName}>
           <div className="flex items-center gap-4 mb-6">
@@ -152,7 +74,6 @@ const Subjects = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {subjects.map((subject) => {
               const Icon = iconMap[subject.id] || BookOpen;
-<<<<<<< HEAD
               const bgGradient = gradientMap[subject.id] || "from-gray-500 to-gray-600";
 
               return (
@@ -166,35 +87,6 @@ const Subjects = () => {
                   
                   <div className="flex items-start justify-between mb-4">
                     <div className={cn("p-3 rounded-xl scale-100 group-hover:scale-110 transition-transform bg-gradient-to-br text-white shadow-md", bgGradient)}>
-=======
-              const bgGradient = gradientMap[subject.id] || 'from-gray-500 to-gray-600';
-              const backendName = subject.title;
-              const progressDoc = progressMap[backendName] || null;
-              const totalTopics = progressDoc?.topics?.length ?? subject.topics.length;
-              const completedTopics = progressDoc
-                ? progressDoc.topics.filter((topic) => topic.status === 'completed').length
-                : 0;
-              const progressPercent = totalTopics ? Math.round((completedTopics / totalTopics) * 100) : 0;
-              const isComplete = progressDoc && totalTopics > 0 && completedTopics === totalTopics;
-              const statusText = progressDoc
-                ? isComplete
-                  ? 'Completed'
-                  : `${completedTopics} / ${totalTopics} completed`
-                : backendName
-                  ? 'Tracking not started'
-                  : 'Tracking unavailable';
-
-              return (
-                <Link
-                  key={subject.id}
-                  to={`/subjects/${subject.id}`}
-                  className="group relative flex flex-col bg-white dark:bg-gray-900/50 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 transition-all hover:shadow-xl hover:-translate-y-1 overflow-hidden"
-                >
-                  <div className={cn('absolute top-0 left-0 right-0 h-1 bg-gradient-to-r opacity-70', bgGradient)} />
-
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={cn('p-3 rounded-xl scale-100 group-hover:scale-110 transition-transform bg-gradient-to-br text-white shadow-md', bgGradient)}>
->>>>>>> c76f504 (updating changes)
                       <Icon className="h-6 w-6" />
                     </div>
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-500/20 transition-colors">
@@ -204,7 +96,6 @@ const Subjects = () => {
 
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{subject.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 flex-1">{subject.description}</p>
-<<<<<<< HEAD
                   
                   <div className="mt-6 pt-4 border-t border-gray-50 dark:border-gray-800/80 flex items-center justify-between text-sm">
                     <div className="flex flex-col">
@@ -213,26 +104,6 @@ const Subjects = () => {
                     </div>
                     <div className="h-2 w-24 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                       <div className="h-full bg-emerald-500 w-0 rounded-full" />
-=======
-
-                  <div className="mt-6 pt-4 border-t border-gray-50 dark:border-gray-800/80 space-y-3 text-sm">
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="font-semibold text-gray-900 dark:text-white">{statusText}</span>
-                      <span className={cn(
-                        'px-2 py-1 rounded-full text-xs font-semibold',
-                        isComplete
-                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-200'
-                          : backendName
-                          ? 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-200'
-                          : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'
-                      )}
-                      >
-                        {isComplete ? 'Completed' : backendName ? 'Trackable' : 'Static'}
-                      </span>
-                    </div>
-                    <div className="h-2 w-full bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${progressPercent}%` }} />
->>>>>>> c76f504 (updating changes)
                     </div>
                   </div>
                 </Link>
@@ -241,15 +112,6 @@ const Subjects = () => {
           </div>
         </section>
       ))}
-<<<<<<< HEAD
-=======
-
-      {loading && (
-        <div className="rounded-3xl bg-white dark:bg-gray-900/50 p-8 shadow-sm border border-gray-100 dark:border-gray-800 text-center text-gray-500 dark:text-gray-400">
-          Loading subject progress...
-        </div>
-      )}
->>>>>>> c76f504 (updating changes)
     </div>
   );
 };
