@@ -20,12 +20,8 @@ const dsaProblemSchema = new mongoose.Schema(
     },
     topic: {
       type: String,
-      enum: [
-        "arrays", "strings", "linkedList", "trees", "graphs", "dp",
-        "binarySearch", "slidingWindow", "recursion", "backtracking",
-        "heap", "stack", "greedy", "math", "other",
-      ],
-      required: true,
+      required: [true, "Problem topic is required"],
+      trim: true,
     },
     difficulty: {
       type: String,

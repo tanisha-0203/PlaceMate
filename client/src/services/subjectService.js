@@ -16,7 +16,11 @@ const subjectService = {
 
   // Update a specific node/topic within a subject
   updateTopic: async (id, topicData) => {
+<<<<<<< HEAD
     const response = await api.put(`/subjects/${id}`, topicData);
+=======
+    const response = await api.put(`/subjects/${id}/topics`, topicData);
+>>>>>>> c76f504 (updating changes)
     return response.data;
   },
   

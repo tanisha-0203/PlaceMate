@@ -72,6 +72,9 @@ const logoutUser = (req, res) => {
   // Clear the cookie by setting its expiry to the past
   res.cookie("prepwork_token", "", {
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    path: "/",
     expires: new Date(0),
   });
   res.json({ message: "Logged out successfully" });

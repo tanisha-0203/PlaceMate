@@ -29,7 +29,6 @@ const subjectProgressSchema = new mongoose.Schema(
     },
     subject: {
       type: String,
-      enum: ["OS", "DBMS", "CN", "OOP", "Aptitude"],
       required: true,
     },
     topics: [topicSchema],

@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React, { useEffect, useState } from 'react';
+>>>>>>> c76f504 (updating changes)
 import { motion } from 'framer-motion';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Code2, Building2, StickyNote, Flame, ArrowRight, Clock, Trophy } from 'lucide-react';
 import StatCard from '../components/common/StatCard';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 
 const mockChartData = [
@@ -16,6 +21,53 @@ const mockChartData = [
 ];
 
 const Dashboard = () => {
+=======
+import Spinner from '../components/common/Spinner';
+import { Link } from 'react-router-dom';
+import analyticsService from '../services/analyticsService';
+
+const defaultChartData = [
+  { name: 'Mon', solved: 0 },
+  { name: 'Tue', solved: 0 },
+  { name: 'Wed', solved: 0 },
+  { name: 'Thu', solved: 0 },
+  { name: 'Fri', solved: 0 },
+  { name: 'Sat', solved: 0 },
+  { name: 'Sun', solved: 0 },
+];
+
+const Dashboard = () => {
+  const [stats, setStats] = useState(null);
+  const [activityChartData, setActivityChartData] = useState(defaultChartData);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDashboard = async () => {
+      try {
+        const [dashboardStats, activityData] = await Promise.all([
+          analyticsService.getDashboardStats(),
+          analyticsService.getActivityChart(),
+        ]);
+
+        setStats(dashboardStats);
+        if (Array.isArray(activityData) && activityData.length > 0) {
+          const formatted = activityData.map((item) => ({
+            name: item._id,
+            solved: item.count,
+          }));
+
+          setActivityChartData(formatted);
+        }
+      } catch (error) {
+        console.error('Dashboard load error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDashboard();
+  }, []);
+>>>>>>> c76f504 (updating changes)
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -29,6 +81,19 @@ const Dashboard = () => {
     show: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 24 } }
   };
 
+<<<<<<< HEAD
+=======
+  const streakLabel = stats?.streak?.current ? `${stats.streak.current} Day Streak!` : "No streak yet";
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+        <Spinner size="lg" />
+      </div>
+    );
+  }
+
+>>>>>>> c76f504 (updating changes)
   return (
     <motion.div 
       variants={containerVariants}
@@ -48,7 +113,11 @@ const Dashboard = () => {
         </div>
         <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-full border border-orange-200/50 dark:border-orange-500/20">
           <Flame className="w-4 h-4 text-orange-500" />
+<<<<<<< HEAD
           <span className="text-sm font-semibold text-orange-700 dark:text-orange-400">3 Day Streak!</span>
+=======
+          <span className="text-sm font-semibold text-orange-700 dark:text-orange-400">{streakLabel}</span>
+>>>>>>> c76f504 (updating changes)
         </div>
       </motion.div>
 
@@ -56,31 +125,49 @@ const Dashboard = () => {
       <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <StatCard 
           title="Problems Solved" 
+<<<<<<< HEAD
           value="45" 
           trend="up" 
           trendValue="12"
+=======
+          value={stats ? stats.dsa.solved : "0"} 
+>>>>>>> c76f504 (updating changes)
           icon={Code2}
           colorClass={{ bg: "bg-blue-100 dark:bg-blue-500/20", text: "text-blue-600 dark:text-blue-400" }}
         />
         <StatCard 
           title="Active Applications" 
+<<<<<<< HEAD
           value="12" 
           trend="up" 
           trendValue="4"
+=======
+          value={stats ? stats.companies.total : "0"} 
+>>>>>>> c76f504 (updating changes)
           icon={Building2}
           colorClass={{ bg: "bg-purple-100 dark:bg-purple-500/20", text: "text-purple-600 dark:text-purple-400" }}
         />
         <StatCard 
+<<<<<<< HEAD
           title="Revision Notes" 
           value="28" 
           trend="up"
           trendValue="8"
+=======
+          title="Subject Progress" 
+          value={stats ? `${stats.subjectProgress}%` : "0%"} 
+>>>>>>> c76f504 (updating changes)
           icon={StickyNote}
           colorClass={{ bg: "bg-emerald-100 dark:bg-emerald-500/20", text: "text-emerald-600 dark:text-emerald-400" }}
         />
         <StatCard 
+<<<<<<< HEAD
           title="Mock Score (Avg)" 
           value="8.5/10" 
+=======
+          title="Pending Revisions" 
+          value={stats ? stats.dsa.reviseLater : "0"} 
+>>>>>>> c76f504 (updating changes)
           icon={Trophy}
           colorClass={{ bg: "bg-amber-100 dark:bg-amber-500/20", text: "text-amber-600 dark:text-amber-400" }}
         />
@@ -98,7 +185,11 @@ const Dashboard = () => {
           </div>
           <div className="h-[280px] w-full">
             <ResponsiveContainer width="100%" height="100%">
+<<<<<<< HEAD
               <AreaChart data={mockChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+=======
+              <AreaChart data={activityChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+>>>>>>> c76f504 (updating changes)
                 <defs>
                   <linearGradient id="colorSolved" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
@@ -126,6 +217,7 @@ const Dashboard = () => {
             <div className="absolute top-0 bottom-0 left-[11px] w-px bg-gray-200 dark:bg-gray-800" />
             
             <div className="space-y-6 relative">
+<<<<<<< HEAD
               <div className="flex gap-4">
                 <div className="relative z-10 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center ring-4 ring-white dark:ring-[#09090b]">
                   <Code2 className="w-3 h-3 text-blue-600 dark:text-blue-400" />
@@ -155,6 +247,23 @@ const Dashboard = () => {
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Oct 24, 2026</p>
                 </div>
               </div>
+=======
+              {stats?.recentActivity?.length > 0 ? (
+                stats.recentActivity.map((item) => (
+                  <div key={item._id} className="flex gap-4">
+                    <div className="relative z-10 w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center ring-4 ring-white dark:ring-[#09090b]">
+                      <Code2 className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{item.description}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{new Date(item.createdAt).toLocaleString()}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-sm text-gray-500 dark:text-gray-400">No recent activity yet. Start solving problems, creating notes, or adding applications to see your dashboard populate.</div>
+              )}
+>>>>>>> c76f504 (updating changes)
             </div>
           </div>
 

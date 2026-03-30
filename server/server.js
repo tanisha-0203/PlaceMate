@@ -29,9 +29,16 @@ const app = express();
 // ─── MIDDLEWARE ────────────────────────────────────────────────────────────────
 
 // Allow requests from the React frontend
+const allowedOrigins = [process.env.CLIENT_URL, "http://127.0.0.1:5173"];
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true, // Allow cookies to be sent cross-origin
   })
 );
