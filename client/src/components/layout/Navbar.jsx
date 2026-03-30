@@ -1,4 +1,8 @@
 import { useState } from "react";
+<<<<<<< HEAD
+=======
+import { Link } from "react-router-dom";
+>>>>>>> c76f504 (updating changes)
 import { useAuth } from "../../context/AuthContext";
 import { Menu, LogOut, Bell, User as UserIcon } from "lucide-react";
 
@@ -61,14 +65,23 @@ const Navbar = ({ onMenuClick }) => {
                   <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{user?.name}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user?.email}</p>
                 </div>
+<<<<<<< HEAD
                 <a
                   href="/profile"
+=======
+                <Link
+                  to="/profile"
+>>>>>>> c76f504 (updating changes)
                   className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-gray-800/50"
                   onClick={() => setShowProfile(false)}
                 >
                   <UserIcon className="mr-3 h-4 w-4" />
                   Your Profile
+<<<<<<< HEAD
                 </a>
+=======
+                </Link>
+>>>>>>> c76f504 (updating changes)
                 <button
                   onClick={logout}
                   className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/10"

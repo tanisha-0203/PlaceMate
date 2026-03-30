@@ -12,12 +12,21 @@ import Register from './pages/Register';
 
 // Feature Pages
 import Dashboard from './pages/Dashboard';
+<<<<<<< HEAD
+import Planner from './pages/Planner';
+import RevisionPlanner from './pages/RevisionPlanner';
+=======
+>>>>>>> c76f504 (updating changes)
 import DSATracker from './pages/DSATracker';
 import Subjects from './pages/Subjects';
 import SubjectDetail from './pages/SubjectDetail';
 import Applications from './pages/Applications';
 import Notes from './pages/Notes';
 import MockInterviews from './pages/MockInterviews';
+<<<<<<< HEAD
+=======
+import Profile from './pages/Profile';
+>>>>>>> c76f504 (updating changes)
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -55,12 +64,21 @@ const App = () => {
         
         {/* Main Application Pages */}
         <Route path="dashboard" element={<Dashboard />} />
+<<<<<<< HEAD
+        <Route path="planner" element={<Planner />} />
+        <Route path="revisions" element={<RevisionPlanner />} />
+=======
+>>>>>>> c76f504 (updating changes)
         <Route path="dsa" element={<DSATracker />} />
         <Route path="subjects" element={<Subjects />} />
         <Route path="subjects/:subjectId" element={<SubjectDetail />} />
         <Route path="applications" element={<Applications />} />
         <Route path="notes" element={<Notes />} />
         <Route path="mock" element={<MockInterviews />} />
+<<<<<<< HEAD
+=======
+        <Route path="profile" element={<Profile />} />
+>>>>>>> c76f504 (updating changes)
       </Route>
 
       {/* Catch-all Fallback */}

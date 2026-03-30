@@ -13,8 +13,9 @@ const generateToken = (res, userId) => {
   // Set cookie options
   res.cookie("prepwork_token", token, {
     httpOnly: true,                          // Not accessible via document.cookie
-    secure: process.env.NODE_ENV !== "development", // HTTPS only in production
-    sameSite: "strict",                      // CSRF protection
+    secure: process.env.NODE_ENV === "production", // HTTPS only in production
+    sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+    path: "/",                             // Make cookie valid for all API paths
     maxAge: 7 * 24 * 60 * 60 * 1000,        // 7 days in milliseconds
   });
 };

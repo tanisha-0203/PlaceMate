@@ -1,12 +1,21 @@
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard, Code2, BookOpen, Building2,
+<<<<<<< HEAD
+  StickyNote, Mic2, X, Sparkles, CalendarDays, RefreshCcw
+=======
   StickyNote, Mic2, X, Sparkles
+>>>>>>> c76f504 (updating changes)
 } from "lucide-react";
 import { cn } from "../../utils/cn";
 
 const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+<<<<<<< HEAD
+  { path: "/planner", label: "Daily Planner", icon: CalendarDays },
+  { path: "/revisions", label: "Auto-Revisions", icon: RefreshCcw },
+=======
+>>>>>>> c76f504 (updating changes)
   { path: "/dsa", label: "DSA Tracker", icon: Code2 },
   { path: "/subjects", label: "CS Subjects", icon: BookOpen },
   { path: "/applications", label: "Applications", icon: Building2 },
